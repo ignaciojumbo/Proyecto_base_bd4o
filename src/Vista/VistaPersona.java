@@ -10,8 +10,8 @@ import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import paquete1.Conexion;
-import paquete1.Controlador;
+import Conexion.Conexion;
+import Controlador.Controlador;
 
 /**
  *

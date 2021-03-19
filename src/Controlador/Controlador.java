@@ -1,5 +1,6 @@
-package paquete1;
+package Controlador;
 
+import Conexion.Conexion;
 import Modelo.Persona;
 import javax.swing.table.DefaultTableModel;
 

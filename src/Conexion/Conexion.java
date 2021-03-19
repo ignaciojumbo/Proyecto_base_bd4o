@@ -1,4 +1,4 @@
-package paquete1;
+package Conexion;
 
 import Modelo.Persona;
 import com.db4o.Db4o;
