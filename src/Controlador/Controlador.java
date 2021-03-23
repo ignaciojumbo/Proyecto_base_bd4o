@@ -17,6 +17,11 @@ public class Controlador extends Conexion {
         Persona persona = new Persona(nombre, apellidos,telefono, id);
         return this.Insertar(persona);
     }
+     public boolean ActualizarPersona(int id, String nombre, String apellidos,String telefono) {
+        Persona persona = new Persona(nombre, apellidos,telefono, id);
+        return this.Actualizar(persona);
+    }
+    
 
     public DefaultTableModel personas() {
         String titulos[] = {"ID", "NOMBRE", "APELLIDO","TELÉFONO"};
@@ -43,6 +48,7 @@ public class Controlador extends Conexion {
             return false;
         }
     }
+     
     
 
 }

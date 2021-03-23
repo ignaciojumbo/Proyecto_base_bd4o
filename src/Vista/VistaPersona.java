@@ -39,15 +39,17 @@ public class VistaPersona extends javax.swing.JFrame {
                     txtid.setText(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
                     txtnombre.setText(tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
                     txtapellido.setText(tabla.getValueAt(tabla.getSelectedRow(), 2).toString());
+                    txttelefono.setText(tabla.getValueAt(tabla.getSelectedRow(), 3).toString());
                 }
             }
         });
     }
-    
-    void limpiarCampos(){
+
+    void limpiarCampos() {
         txtid.setText("");
         txtnombre.setText("");
         txtapellido.setText("");
+        txttelefono.setText("");
     }
 
     /**
@@ -76,6 +78,7 @@ public class VistaPersona extends javax.swing.JFrame {
         bnguardar = new javax.swing.JButton();
         bneliminar = new javax.swing.JButton();
         bnlimpiar = new javax.swing.JButton();
+        bnactualizar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -144,7 +147,7 @@ public class VistaPersona extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3))
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtid)
                             .addComponent(txtapellido)
@@ -201,6 +204,14 @@ public class VistaPersona extends javax.swing.JFrame {
             }
         });
 
+        bnactualizar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        bnactualizar.setText("Actualizar");
+        bnactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnactualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -208,11 +219,13 @@ public class VistaPersona extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(bnguardar)
-                .addGap(50, 50, 50)
+                .addGap(34, 34, 34)
+                .addComponent(bnactualizar)
+                .addGap(37, 37, 37)
                 .addComponent(bneliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(bnlimpiar)
-                .addGap(51, 51, 51))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +234,8 @@ public class VistaPersona extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnguardar)
                     .addComponent(bneliminar)
-                    .addComponent(bnlimpiar))
+                    .addComponent(bnlimpiar)
+                    .addComponent(bnactualizar))
                 .addGap(20, 20, 20))
         );
 
@@ -250,14 +264,14 @@ public class VistaPersona extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addComponent(jLabel1)))
-                .addGap(0, 56, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +291,7 @@ public class VistaPersona extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,16 +307,31 @@ public class VistaPersona extends javax.swing.JFrame {
             String nombre = txtnombre.getText();
             String apellidos = txtapellido.getText();
             String telefono = txttelefono.getText();
-            boolean insertado = this.controlador.insertarPersona(id, nombre, apellidos,telefono);
+            boolean insertado = this.controlador.insertarPersona(id, nombre, apellidos, telefono);
             if (insertado == true) {
-                JOptionPane.showMessageDialog(rootPane, "Datos guardados");
+                JOptionPane.showMessageDialog(rootPane, "Registros guardados con exito");
                 limpiarCampos();
                 tabla.setModel(this.controlador.personas());
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Algo falló al insertar");
+                JOptionPane.showMessageDialog(rootPane, "Error al insertar");
             }
         } catch (NumberFormatException | HeadlessException e) {
             JOptionPane.showMessageDialog(rootPane, "El ID introducido no es un número");
+        }
+    }
+
+    private void actualizarPersona() {
+        int id = Integer.valueOf(txtid.getText());
+        String nombre = txtnombre.getText();
+        String apellidos = txtapellido.getText();
+        String telefono = txttelefono.getText();
+        boolean insertado = this.controlador.ActualizarPersona(id, nombre, apellidos, telefono);
+        if (insertado == true) {
+            JOptionPane.showMessageDialog(rootPane, "Se a actualizado la persona correctamente");
+            limpiarCampos();
+            tabla.setModel(this.controlador.personas());
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Error al actualizar");
         }
     }
 
@@ -311,11 +340,11 @@ public class VistaPersona extends javax.swing.JFrame {
             int id = Integer.parseInt(txtid.getText());
             boolean eliminado = this.controlador.eliminarPersona(id);
             if (eliminado == true) {
-                JOptionPane.showMessageDialog(rootPane, "Datos eliminados");
+                JOptionPane.showMessageDialog(rootPane, "Registro eliminado correctamente");
                 limpiarCampos();
                 tabla.setModel(this.controlador.personas());
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Algo falló al eliminar");
+                JOptionPane.showMessageDialog(rootPane, "Error al eliminar");
             }
         } catch (NumberFormatException | HeadlessException e) {
             JOptionPane.showMessageDialog(rootPane, "El valor introducido no es un número");
@@ -332,6 +361,10 @@ public class VistaPersona extends javax.swing.JFrame {
     private void bnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnlimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_bnlimpiarActionPerformed
+
+    private void bnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnactualizarActionPerformed
+        actualizarPersona();
+    }//GEN-LAST:event_bnactualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,6 +403,7 @@ public class VistaPersona extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bnactualizar;
     private javax.swing.JButton bneliminar;
     private javax.swing.JButton bnguardar;
     private javax.swing.JButton bnlimpiar;

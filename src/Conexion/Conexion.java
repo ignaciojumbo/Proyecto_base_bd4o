@@ -28,6 +28,29 @@ public class Conexion {
         }
     }
 
+    public boolean Actualizar(Persona objeto) {
+        try {
+            //BUSCAMOS SI EXISTE EL OBJETO, SI ES ASÍ LO ACTUALIZAMOS EN LA BASE DE DATOS
+            this.open();
+            ObjectSet resultados = this.oc.get(new Persona(null, null,null, objeto.getId()));
+            if (resultados.size() > 0) {
+                Persona resultado = (Persona) resultados.next();
+                resultado.setNombre(objeto.getNombre());
+                resultado.setApellido(objeto.getApellido());
+                resultado.setTelefono(objeto.getTelefono());
+                this.oc.set(resultado);
+                this.oc.close();
+                return true;
+            } else {
+                this.oc.close();
+                return false;
+            }
+        } catch (DatabaseClosedException | DatabaseReadOnlyException e) {
+            System.out.println("bdoo.Controlador.insertarPersona() : " + e);
+            return false;
+        }
+    }
+
     public Persona[] Consultar(Persona objeto) {
         try {
             Persona[] personas = null;
@@ -52,8 +75,8 @@ public class Conexion {
         //this.oc.close()
     }
 
-     public Persona buscarPersona(Persona objeto) {
-        this.open();   
+    public Persona buscarPersona(Persona objeto) {
+        this.open();
         Persona encontrado = null;
         ObjectSet resultados = this.oc.get(objeto);
         if (resultados.hasNext()) {
@@ -61,7 +84,8 @@ public class Conexion {
         }
         return encontrado;
     }
-      public boolean Eliminar(Persona objeto) {
+
+    public boolean Eliminar(Persona objeto) {
         try {
             //CONSULTAMOS LOS OBJETOS ALMACENADOS EN LA BASE DE DATOS Y SI EXISTE UNA COINCIDENCIA LA ELIMINAMOS            
             this.open();
